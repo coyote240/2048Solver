@@ -22,9 +22,9 @@ class Board (dict):
             for y in range(self.size):
                 value = self.get((x, y))
                 if value is None:
-                    out += '.'
+                    out += '. '
                 else:
-                    out += str(value)
+                    out += str(value) + ' '
             out += '\n'
         return out
 
@@ -45,3 +45,50 @@ class Board (dict):
             self.set_random_cell()
         else:
             self[(x, y)] = random.randint(1, 2) * 2
+
+    def get_lateral_rows(self):
+        rows = [[], [], [], []]
+        for x in range(self.size):
+            for y in range(self.size):
+                rows[x].append(self.get((x, y)))
+        return rows
+
+    def set_lateral_rows(self, rows):
+        for x in range(self.size):
+            for y in range(self.size):
+                self[(x, y)] = rows[x][y]
+        return self
+
+    def get_longitudinal_rows(self):
+        rows = [[], [], [], []]
+        for x in range(self.size):
+            for y in range(self.size):
+                rows[y].append(self.get((x, y)))
+        return rows
+
+    def set_longitudinal_rows(self, rows):
+        for x in range(self.size):
+            for y in range(self.size):
+                self[(x, y)] = rows[y][x]
+        return self
+
+    def collapse_row(self, row):
+        filled = [x for x in row if x is not None]
+        output = []
+
+        def collapse(row):
+            if len(row) > 1:
+                (a, b), rest = row[:2], row[2:]
+                if a == b:
+                    output.append(a + b)
+                    collapse(rest)
+                else:
+                    output.append(a)
+                    collapse([b] + rest)
+            elif len(row) is 1:
+                output.append(row[0])
+            else:
+                pass
+
+        collapse(filled)
+        return output + [None] * (self.size - len(output))

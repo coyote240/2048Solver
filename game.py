@@ -9,28 +9,14 @@ class Game (object):
         self.moves = []
         self.current_state = Board()
 
-    def move(self, direction):
+    def move(self, direction=None):
         self.moves.append(self.current_state)
         self.current_state = Board(self.current_state)
 
-    def collapse_row(self, row):
-        filled = [x for x in row if x is not None]
-        output = []
+        rows = self.current_state.get_longitudinal_rows()
+        for index, row in enumerate(rows):
+            rows[index] = self.current_state.collapse_row(row)
 
-        def collapse(row):
-            if len(row) > 1:
-                (a, b), rest = row[:2], row[2:]
-                if a == b:
-                    self.score += a + b
-                    output.append(a + b)
-                    collapse(rest)
-                else:
-                    output.append(a)
-                    collapse([b] + rest)
-            elif len(row) is 1:
-                output.append(row[0])
-            else:
-                pass
-
-        collapse(filled)
-        return output + [None] * (4 - len(output))
+        self.current_state.set_longitudinal_rows(rows)
+        self.current_state.set_random_cell()
+        print self.current_state
