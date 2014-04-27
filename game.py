@@ -13,10 +13,16 @@ class Game (object):
         self.moves.append(self.current_state)
         self.current_state = Board(self.current_state)
 
-        rows = self.current_state.get_longitudinal_rows()
-        for index, row in enumerate(rows):
-            rows[index] = self.current_state.collapse_row(row)
+        if direction is 'RIGHT':
+            self.current_state.shift_right()
+        elif direction is 'LEFT':
+            self.current_state.shift_left()
+        elif direction is 'UP':
+            self.current_state.shift_up()
+        elif direction is 'DOWN':
+            self.current_state.shift_down()
+        else:
+            pass
 
-        self.current_state.set_longitudinal_rows(rows)
         self.current_state.set_random_cell()
         print self.current_state

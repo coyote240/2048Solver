@@ -92,3 +92,35 @@ class Board (dict):
 
         collapse(filled)
         return output + [None] * (self.size - len(output))
+
+    def shift_up(self):
+        rows = self.get_longitudinal_rows()
+        for index, row in enumerate(rows):
+            rows[index] = self.collapse_row(row)
+        self.set_longitudinal_rows(rows)
+
+    def shift_down(self):
+        rows = self.get_longitudinal_rows()
+
+        for index, row in enumerate(rows):
+            rows[index].reverse()
+            rows[index] = self.collapse_row(row)
+            rows[index].reverse()
+
+        self.set_longitudinal_rows(rows)
+
+    def shift_left(self):
+        rows = self.get_lateral_rows()
+        for index, row in enumerate(rows):
+            rows[index] = self.collapse_row(row)
+        self.set_lateral_rows(rows)
+
+    def shift_right(self):
+        rows = self.get_lateral_rows()
+
+        for index, row in enumerate(rows):
+            rows[index].reverse()
+            rows[index] = self.collapse_row(row)
+            rows[index].reverse()
+
+        self.set_lateral_rows(rows)
