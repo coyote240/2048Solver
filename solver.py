@@ -12,7 +12,30 @@ class Game (object):
     score = 0
 
     def __init__(self):
-        pass
+        self.moves = []
+        self.current_state = Board()
+
+    def move(self, direction):
+        self.moves.append(self.current_state)
+        self.current_state = Board(self.current_state)
+
+    def collapse_row(self, row):
+        filled = [x for x in row if x is not None]
+        output = []
+
+        def collapse(row):
+            if len(row) > 1:
+                (a, b), rest = row[:2], row[2:]
+                if a == b:
+                    output.append(a + b)
+                collapse(rest)
+            elif len(row) is 1:
+                output.append(row[0])
+            else:
+                pass
+
+        collapse(filled)
+        return output
 
 
 class Board (dict):
@@ -21,32 +44,38 @@ class Board (dict):
     Representing a single state of a board when playing the game 2048.
     '''
 
-    width = 4
-    height = 4
+    size = 4
 
     def __init__(self, base=None):
         if base is None:
-            self.create_board()
+            self.create()
+            return
+        for key, val in base.iteritems():
+            self[key] = val
 
     def __str__(self):
         out = ''
-        for x in range(self.width):
-            for y in range(self.height):
+        for x in range(self.size):
+            for y in range(self.size):
                 value = self.get((x, y))
-                out += str(value)
+                if value is None:
+                    out += '.'
+                else:
+                    out += str(value)
             out += '\n'
         return out
 
-    def create_board(self):
-        for x in range(self.width):
-            for y in range(self.height):
+    def create(self):
+        for x in range(self.size):
+            for y in range(self.size):
                 self[(x, y)] = None
         self.set_random_cell()
         self.set_random_cell()
 
     def set_random_cell(self):
-        x = random.randint(0, self.width - 1)
-        y = random.randint(0, self.height - 1)
+        # TODO: Rewrite using dictionary comprehension!!!
+        x = random.randint(0, self.size - 1)
+        y = random.randint(0, self.size - 1)
 
         current = self.get((x, y))
         if current is not None:
