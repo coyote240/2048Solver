@@ -27,15 +27,19 @@ class Game (object):
             if len(row) > 1:
                 (a, b), rest = row[:2], row[2:]
                 if a == b:
+                    self.score += a + b
                     output.append(a + b)
-                collapse(rest)
+                    collapse(rest)
+                else:
+                    output.append(a)
+                    collapse([b] + rest)
             elif len(row) is 1:
                 output.append(row[0])
             else:
                 pass
 
         collapse(filled)
-        return output
+        return output + [None] * (4 - len(output))
 
 
 class Board (dict):
