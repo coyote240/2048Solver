@@ -10,19 +10,23 @@ class Game (object):
         self.current_state = Board()
 
     def move(self, direction=None):
+        score = 0
         self.moves.append(self.current_state)
         self.current_state = Board(self.current_state)
 
         if direction is 'RIGHT':
-            self.current_state.shift_right()
+            score += self.current_state.shift_right()
         elif direction is 'LEFT':
-            self.current_state.shift_left()
+            score += self.current_state.shift_left()
         elif direction is 'UP':
-            self.current_state.shift_up()
+            score += self.current_state.shift_up()
         elif direction is 'DOWN':
-            self.current_state.shift_down()
+            score += self.current_state.shift_down()
         else:
             pass
 
+        self.score += score
+
         self.current_state.set_random_cell()
         print self.current_state
+        print score

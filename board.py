@@ -77,9 +77,11 @@ class Board (dict):
         output = []
 
         def collapse(row):
+            score = 0
             if len(row) > 1:
                 (a, b), rest = row[:2], row[2:]
                 if a == b:
+                    score += a + b
                     output.append(a + b)
                     collapse(rest)
                 else:
@@ -89,38 +91,54 @@ class Board (dict):
                 output.append(row[0])
             else:
                 pass
+            return score
 
-        collapse(filled)
-        return output + [None] * (self.size - len(output))
+        score = collapse(filled)
+        return self.pad_row(output), score
+
+    def pad_row(self, row):
+        return row + [None] * (self.size - len(row))
 
     def shift_up(self):
+        move_score = 0
         rows = self.get_longitudinal_rows()
         for index, row in enumerate(rows):
-            rows[index] = self.collapse_row(row)
+            rows[index], score = self.collapse_row(row)
+            move_score += score
         self.set_longitudinal_rows(rows)
+        return move_score
 
     def shift_down(self):
+        move_score = 0
         rows = self.get_longitudinal_rows()
 
         for index, row in enumerate(rows):
             rows[index].reverse()
-            rows[index] = self.collapse_row(row)
+            rows[index], score = self.collapse_row(row)
             rows[index].reverse()
+            move_score += score
 
         self.set_longitudinal_rows(rows)
+        return move_score
 
     def shift_left(self):
+        move_score = 0
         rows = self.get_lateral_rows()
         for index, row in enumerate(rows):
-            rows[index] = self.collapse_row(row)
+            rows[index], score = self.collapse_row(row)
+            move_score += score
         self.set_lateral_rows(rows)
+        return move_score
 
     def shift_right(self):
+        move_score = 0
         rows = self.get_lateral_rows()
 
         for index, row in enumerate(rows):
             rows[index].reverse()
-            rows[index] = self.collapse_row(row)
+            rows[index], score = self.collapse_row(row)
             rows[index].reverse()
+            move_score += score
 
         self.set_lateral_rows(rows)
+        return move_score
