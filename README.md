@@ -1,4 +1,4 @@
-# 2048 Solver in Python
+# Completely Inelegant 2048 Solver in Python
 
 I'm sure you've seen a hundred of them.  Here's one more.
 
