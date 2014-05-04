@@ -1,4 +1,4 @@
-# Completely Inelegant 2048 Solver in Python
+# Completely Inelegant 2048 Solver
 
 I'm sure you've seen a hundred of them.  Here's one more.
 
@@ -35,3 +35,5 @@ enjoyment.  Yeah, let's go with that one.
 Most of what will be done first is simply implementing the game.  This means
 rules and the basic ability to play.  Beyond this, here is the creativity.  Is
 the game to be solved as a search problem?  How else?  It remains to be seen.
+
+## The Graph

@@ -1,6 +1,36 @@
 import random
 
 
+def collapse_row(row):
+    size = len(row)
+    filled_cells = [x for x in row if x is not None]
+    output, score = _collapse_row_aux(filled_cells, [], 0)
+    return _pad_row(output, size), score
+
+
+def _collapse_row_aux(input_list, output_list, score):
+    if len(input_list) > 1:
+        (a, b), rest = input_list[:2], input_list[2:]
+        if a == b:
+            c = a + b
+            score += c
+            output_list.append(c)
+            output_list, score = _collapse_row_aux(
+                rest, output_list, score)
+        else:
+            output_list.append(a)
+            output_list, score = _collapse_row_aux(
+                [b] + rest, output_list, score)
+    elif len(input_list) is 1:
+        output_list.append(input_list[0])
+
+    return output_list, score
+
+
+def _pad_row(row, size):
+    return row + ([None] * (size - len(row)))
+
+
 class Board (dict):
 
     '''Board.
@@ -35,16 +65,13 @@ class Board (dict):
         self.set_random_cell()
         self.set_random_cell()
 
-    def set_random_cell(self):
-        # TODO: Rewrite using dictionary comprehension!!!
-        x = random.randint(0, self.size - 1)
-        y = random.randint(0, self.size - 1)
+    def empty_cells(self):
+        return [key for key in self if self[key] is None]
 
-        current = self.get((x, y))
-        if current is not None:
-            self.set_random_cell()
-        else:
-            self[(x, y)] = random.randint(1, 2) * 2
+    def set_random_cell(self):
+        coords = self.empty_cells()
+        selected = random.choice(coords)
+        self[selected] = random.randint(1, 2) * 2
 
     def get_lateral_rows(self):
         rows = [[], [], [], []]
@@ -72,38 +99,16 @@ class Board (dict):
                 self[(x, y)] = rows[y][x]
         return self
 
-    def collapse_row(self, row):
-        filled = [x for x in row if x is not None]
-        output = []
-
-        def collapse(row):
-            score = 0
-            if len(row) > 1:
-                (a, b), rest = row[:2], row[2:]
-                if a == b:
-                    score += a + b
-                    output.append(a + b)
-                    collapse(rest)
-                else:
-                    output.append(a)
-                    collapse([b] + rest)
-            elif len(row) is 1:
-                output.append(row[0])
-            else:
-                pass
-            return score
-
-        score = collapse(filled)
-        return self.pad_row(output), score
-
     def pad_row(self, row):
+        '''Pad the given row to size with a value of None.
+        '''
         return row + [None] * (self.size - len(row))
 
     def shift_up(self):
         move_score = 0
         rows = self.get_longitudinal_rows()
         for index, row in enumerate(rows):
-            rows[index], score = self.collapse_row(row)
+            rows[index], score = collapse_row(row)
             move_score += score
         self.set_longitudinal_rows(rows)
         return move_score
@@ -114,7 +119,7 @@ class Board (dict):
 
         for index, row in enumerate(rows):
             rows[index].reverse()
-            rows[index], score = self.collapse_row(row)
+            rows[index], score = collapse_row(row)
             rows[index].reverse()
             move_score += score
 
@@ -125,7 +130,7 @@ class Board (dict):
         move_score = 0
         rows = self.get_lateral_rows()
         for index, row in enumerate(rows):
-            rows[index], score = self.collapse_row(row)
+            rows[index], score = collapse_row(row)
             move_score += score
         self.set_lateral_rows(rows)
         return move_score
@@ -136,7 +141,7 @@ class Board (dict):
 
         for index, row in enumerate(rows):
             rows[index].reverse()
-            rows[index], score = self.collapse_row(row)
+            rows[index], score = collapse_row(row)
             rows[index].reverse()
             move_score += score
 
