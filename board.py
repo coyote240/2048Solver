@@ -40,11 +40,9 @@ class Board (dict):
     size = 4
 
     def __init__(self, base=None):
-        if base is None:
-            self.create()
-            return
-        for key, val in base.iteritems():
-            self[key] = val
+        if base is not None:
+            for key, val in base.iteritems():
+                self[key] = val
 
     def __str__(self):
         out = ''
@@ -58,33 +56,46 @@ class Board (dict):
             out += '\n'
         return out
 
-    def create(self):
+    @classmethod
+    def new_board(self):
+        board = Board()
         for x in range(self.size):
             for y in range(self.size):
-                self[(x, y)] = None
-        self.set_random_cell()
-        self.set_random_cell()
+                board[(x, y)] = None
+        board = board.add_random_cell()
+        board = board.add_random_cell()
+        return board
 
-    def empty_cells(self):
+    def get_empty_cells(self):
+        '''Return a list of coordinate tuples for each empty cell on the board.
+        '''
         return [key for key in self if self[key] is None]
 
-    def set_random_cell(self):
-        coords = self.empty_cells()
+    def add_random_cell(self):
+        '''Return a new board with the addition of one random cell.
+        '''
+        board = Board(self)
+        coords = board.get_empty_cells()
         selected = random.choice(coords)
-        self[selected] = random.randint(1, 2) * 2
+        board[selected] = random.randint(1, 2) * 2
+        return board
 
     def get_lateral_rows(self):
+        '''Return the current board state as a list of lists, oriented
+        laterally.
+        '''
         rows = [[], [], [], []]
         for x in range(self.size):
             for y in range(self.size):
                 rows[x].append(self.get((x, y)))
         return rows
 
-    def set_lateral_rows(self, rows):
+    def _board_with_lateral_rows(self, rows):
+        board = Board()
         for x in range(self.size):
             for y in range(self.size):
-                self[(x, y)] = rows[x][y]
-        return self
+                board[(x, y)] = rows[x][y]
+        return board
 
     def get_longitudinal_rows(self):
         rows = [[], [], [], []]
@@ -93,16 +104,79 @@ class Board (dict):
                 rows[y].append(self.get((x, y)))
         return rows
 
+    def _board_with_longitudinal_rows(self, rows):
+        board = Board()
+        for x in range(self.size):
+            for y in range(self.size):
+                board[(x, y)] = rows[y][x]
+        return board
+
+    def shift_up(self):
+        move_score = 0
+        rows = self.get_longitudinal_rows()
+
+        for index, row in enumerate(rows):
+            rows[index], score = collapse_row(row)
+            move_score += score
+
+        return self._board_with_longitudinal_rows(rows), move_score
+
+    def shift_down(self):
+        move_score = 0
+        rows = self.get_longitudinal_rows()
+
+        for index, row in enumerate(rows):
+            rows[index].reverse()
+            rows[index], score = collapse_row(row)
+            rows[index].reverse()
+            move_score += score
+
+        return self._board_with_longitudinal_rows(rows), move_score
+
+    def shift_left(self):
+        move_score = 0
+        rows = self.get_lateral_rows()
+
+        for index, row in enumerate(rows):
+            rows[index], score = collapse_row(row)
+            move_score += score
+
+        return self._board_with_lateral_rows(rows), move_score
+
+    def shift_right(self):
+        move_score = 0
+        rows = self.get_lateral_rows()
+
+        for index, row in enumerate(rows):
+            rows[index].reverse()
+            rows[index], score = collapse_row(row)
+            rows[index].reverse()
+            move_score += score
+
+        return self._board_with_lateral_rows(rows), move_score
+
+
+class StatefulBoard(Board):
+
+    def __init__(self, base=None):
+        super(StatefulBoard, self).__init__(base)
+
+    def add_random_cell(self):
+        coords = self.get_empty_cells()
+        selected = random.choice(coords)
+        self[selected] = random.randint(1, 2) * 2
+
+    def set_lateral_rows(self, rows):
+        for x in range(self.size):
+            for y in range(self.size):
+                self[(x, y)] = rows[x][y]
+        return self
+
     def set_longitudinal_rows(self, rows):
         for x in range(self.size):
             for y in range(self.size):
                 self[(x, y)] = rows[y][x]
         return self
-
-    def pad_row(self, row):
-        '''Pad the given row to size with a value of None.
-        '''
-        return row + [None] * (self.size - len(row))
 
     def shift_up(self):
         move_score = 0
