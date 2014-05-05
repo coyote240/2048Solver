@@ -7,26 +7,27 @@ class Game (object):
 
     def __init__(self):
         self.moves = []
-        self.current_state = Board()
+        self.current_state = Board.new_board()
+
+    def commit(self, board):
+        self.moves.append(self.current_state)
+        self.current_state = board
 
     def move(self, direction=None):
         score = 0
-        self.moves.append(self.current_state)
-        self.current_state = Board(self.current_state)
+        new_board = None
 
         if direction is 'RIGHT':
-            score += self.current_state.shift_right()
+            new_board, score = self.current_state.shift_right()
         elif direction is 'LEFT':
-            score += self.current_state.shift_left()
+            new_board, score = self.current_state.shift_left()
         elif direction is 'UP':
-            score += self.current_state.shift_up()
+            new_board, score = self.current_state.shift_up()
         elif direction is 'DOWN':
-            score += self.current_state.shift_down()
+            new_board, score = self.current_state.shift_down()
         else:
-            pass
+            raise ValueError('Not a valid direction.')
 
         self.score += score
-
-        self.current_state.set_random_cell()
-        print self.current_state
-        print score
+        new_board = new_board.add_random_cell()
+        self.commit(new_board)
