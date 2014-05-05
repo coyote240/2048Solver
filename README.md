@@ -56,3 +56,8 @@ For each game state:
 * evaluate each next state based upon:
     * point value of change
     * number of empty cells
+
+## TODO
+
+* tests
+* ipython notebook
