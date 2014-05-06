@@ -22,18 +22,42 @@ There are two problems with this:
 2. There seems to be an oscilating pattern that causes "promoted" higher numbers
    to occur on opposing ends of the board.
 
-I just can't seem to break that pattern.
+I just can't seem to break that pattern.  I would like to see the output graph
+of this program point the way to a new play pattern.
+
+## The Graph
+
+I've had fun thinking about the problem of 2048.  I'm not especially strong at
+maths, but better at logic.  Looking at any give state of the board, there are a
+finite number of states that basically break down as:
+
+valid moves * empty cells * 2
+
+where 2 is the number of possible values of the random cell added at the end of
+each turn.
+
+As the player only has control over the valid move chosen, I do not intend to
+explore the entirety of the game graph.  That means that the number of possible
+next board states is limited to:
+
+valid moves * (empty cells - 1)
 
 ## The Solver
 
-Don't look for much, there are far smarter people than me playing with the
-problem.  This project falls into the "procrasti-work" category.  While I have
-plenty of paying or otherwise projects to work on, I'm wasting my time on this
-one.  A less cynical view may be that I'm keeping a project aside for pure
-enjoyment.  Yeah, let's go with that one.
+Thus far I have implemented the game as a Board and Game class.  After a few
+iterations where the state of the Board object changed with each move, I've
+rewritten the Board class to be stateless.  Each mutator operation returns a new
+board state, leaving the instance itself intact.  This allows for a basic search
+algorithm:
 
-Most of what will be done first is simply implementing the game.  This means
-rules and the basic ability to play.  Beyond this, here is the creativity.  Is
-the game to be solved as a search problem?  How else?  It remains to be seen.
+For each game state:
 
-## The Graph
+* pull each next valid state
+* evaluate each next state based upon:
+    * point value of change
+    * number of empty cells
+
+## TODO
+
+* tests
+* ipython notebook
