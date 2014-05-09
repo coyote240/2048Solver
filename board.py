@@ -2,10 +2,24 @@ import random
 
 
 def collapse_row(row):
+    '''Collapse a row, being a list of <size> values, combining
+    like cells as appropriate to the game.
+    This function assumes that the collapse and score action is always
+    a right-to-left operation.  All methods that employ this function assume
+    responsibility for ensuring so.
+
+    Returns a tuple containing the new row and the operation's score.
+    Returns a score of None if the row could not be collapsed.
+    '''
     size = len(row)
     filled_cells = [x for x in row if x is not None]
     output, score = _collapse_row_aux(filled_cells, [], 0)
-    return _pad_row(output, size), score
+    output = _pad_row(output, size)
+
+    if output == row:
+        score = None
+
+    return output, score
 
 
 def _collapse_row_aux(input_list, output_list, score):
@@ -66,6 +80,10 @@ class Board (dict):
         board = board.add_random_cell()
         return board
 
+    @property
+    def id(self):
+        pass
+
     def get_empty_cells(self):
         '''Return a list of coordinate tuples for each empty cell on the board.
         '''
@@ -112,48 +130,54 @@ class Board (dict):
         return board
 
     def shift_up(self):
-        move_score = 0
         rows = self.get_longitudinal_rows()
-
-        for index, row in enumerate(rows):
-            rows[index], score = collapse_row(row)
-            move_score += score
+        rows, move_score = self._shift_rows(rows)
 
         return self._board_with_longitudinal_rows(rows), move_score
 
     def shift_down(self):
-        move_score = 0
         rows = self.get_longitudinal_rows()
-
-        for index, row in enumerate(rows):
-            rows[index].reverse()
-            rows[index], score = collapse_row(row)
-            rows[index].reverse()
-            move_score += score
+        rows, move_score = self._reverse_shift_rows(rows)
 
         return self._board_with_longitudinal_rows(rows), move_score
 
     def shift_left(self):
-        move_score = 0
         rows = self.get_lateral_rows()
-
-        for index, row in enumerate(rows):
-            rows[index], score = collapse_row(row)
-            move_score += score
+        rows, move_score = self._shift_rows(rows)
 
         return self._board_with_lateral_rows(rows), move_score
 
     def shift_right(self):
-        move_score = 0
         rows = self.get_lateral_rows()
+        rows, move_score = self._reverse_shift_rows(rows)
+
+        return self._board_with_lateral_rows(rows), move_score
+
+    def _shift_rows(self, rows):
+        move_score = None
+
+        for index, row in enumerate(rows):
+            rows[index], score = collapse_row(row)
+            if score is not None:
+                if move_score is None:
+                    move_score = 0
+                move_score += score
+
+        return rows, move_score
+
+    def _reverse_shift_rows(self, rows):
+        move_score = None
 
         for index, row in enumerate(rows):
             rows[index].reverse()
             rows[index], score = collapse_row(row)
             rows[index].reverse()
-            move_score += score
+            if score is not None:
+                if move_score is None:
+                    move_score = 0
+                move_score += score
 
-        return self._board_with_lateral_rows(rows), move_score
+        return rows, move_score
 
 
 class StatefulBoard(Board):

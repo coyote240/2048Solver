@@ -1,32 +1,31 @@
-from game import Game
+from board import Board
 
 
 class Solver (object):
+    '''Process.
+
+    1. Establish first board.
+    2. Play each possible move.
+    3. Evaluate the value of each possible move.
+        . Score of move
+        . Empty spaces on the board
+    4. Commit to the "best" move.
+    5. Repeat
+    '''
 
     def __init__(self):
-        self.game = Game()
+        self.board = Board.new_board()
 
-    def play(self):
+    def solve(self):
+        moves = sorted(
+            self.board.shift_right(),
+            self.board.shift_left(),
+            self.board.shift_up(),
+            self.board.shift_down(),
+            key=lambda move: move[1])
 
-        board = self.game.current_state
-
-        while(board is not None):
-            board = self.best_move(board)
-
-    def best_move(self, board):
-        '''Process.
-
-        1. Establish first board.
-        2. Play each possible move.
-        3. Evaluate the value of each possible move.
-            . Score of move
-            . Empty spaces on the board
-        4. Commit to the "best" move.
-        5. Repeat
-        '''
-        pass
-
+        return moves
 
 if __name__ == '__main__':
     solver = Solver()
-    solver.play()
+    solver.solve()
