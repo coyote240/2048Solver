@@ -82,7 +82,9 @@ class Board (dict):
 
     @property
     def id(self):
-        pass
+        return hash(
+            tuple(
+                sorted(self.items())))
 
     def get_empty_cells(self):
         '''Return a list of coordinate tuples for each empty cell on the board.
@@ -116,6 +118,9 @@ class Board (dict):
         return board
 
     def get_longitudinal_rows(self):
+        '''Return the current board state as a list of lists, oriented
+        longitudinally.
+        '''
         rows = [[], [], [], []]
         for x in range(self.size):
             for y in range(self.size):

@@ -10,7 +10,8 @@ class Solver (object):
         . Score of move
         . Empty spaces on the board
     4. Commit to the "best" move.
-    5. Repeat
+    5. Add random cell
+    6. Repeat
     '''
 
     def __init__(self):
