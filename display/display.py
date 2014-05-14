@@ -1,4 +1,9 @@
+import os
 import xml.dom.minidom
+
+
+base_svg = os.path.join(os.path.dirname(__file__), 'board.svg')
+default_base_dom = xml.dom.minidom.parse(base_svg)
 
 
 class Display(object):
@@ -6,6 +11,8 @@ class Display(object):
     def __init__(self, dom=None):
         if dom is not None:
             self.dom = dom.cloneNode(True)
+        else:
+            self.dom = default_base_dom.cloneNode(True)
 
     @classmethod
     def from_file(cls, filename):
@@ -25,15 +32,20 @@ class Display(object):
 
     def cell(self, coords, val=None):
         if val is not None:
-            self._set_cell(coords, val)
+            self._set_cell_value(coords, val)
+            self._set_cell_color(coords, val)
+        return self.cells[coords]
 
-        retval = self._get_cell(coords)
-        return retval
+    def _set_cell_value(self, coords, val):
+        node = self.cells[coords]
+        text = node.getElementsByTagName('text')
 
-    def _set_cell(coords, val):
-        pass
+        if text.hasChildNodes():
+            for n in text.childNodes:
+                text.removeChild(n)
+        text.appendChild(self.dom.createTextNode(val))
 
-    def _get_cell(coords):
+    def _set_cell_color(self, coords, val):
         pass
 
     def get_rows(self):
