@@ -1,11 +1,25 @@
 <?xml version="1.0" standalone="no"?>
-<?xml-stylesheet href="board.css" type="text/css"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
 "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="400px" height="400px" version="1.1"
     xmlns="http://www.w3.org/2000/svg">
-    <defs>
-    </defs>
+    <style>
+    /* <![CDATA[ */
+    svg {
+        color: #776e65;
+        font-family: sans-serif;
+    }
+
+    #board-container {
+        fill: #bbada0;
+    }
+
+    g.row rect {
+        fill: rgba(238, 228, 218, 0.35);
+    }
+    /* ]]> */
+    </style>
+
     <rect id="board-container" width="400" height="400" rx="6" ry="6">
     </rect>
     <g transform="translate(15, 15) scale(0.9575 0.9575)">
