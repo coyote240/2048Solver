@@ -71,10 +71,10 @@ class Board (dict):
         return out
 
     @classmethod
-    def new_board(self):
-        board = Board()
-        for x in range(self.size):
-            for y in range(self.size):
+    def new_board(cls):
+        board = cls()
+        for x in range(cls.size):
+            for y in range(cls.size):
                 board[(x, y)] = None
         board = board.add_random_cell()
         board = board.add_random_cell()

@@ -11,52 +11,52 @@
     <g transform="translate(15, 15) scale(0.9575 0.9575)">
         <g class="row">
             <g class="cell">
-                <rect width="85" height="85" rx="3" ry="3" class="twentyfortyeight"/>
-                <text x="25" y="50" font-size="26">2048</text>
+                <rect width="85" height="85" rx="3" ry="3"/>
+                <text x="25" y="50" font-size="26"></text>
             </g>
             <g class="cell" transform="translate(100, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26">1024</text>
+                <text x="25" y="50" font-size="26"></text>
             </g>
             <g class="cell" transform="translate(200, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26">512</text>
+                <text x="25" y="50" font-size="26"></text>
             </g>
             <g class="cell" transform="translate(300, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26">256</text>
+                <text x="25" y="50" font-size="26"></text>
             </g>
         </g>
         <g class="row" transform="translate(0, 100)">
             <g class="cell">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26">128</text>
+                <text x="25" y="50" font-size="26"></text>
             </g>
             <g class="cell" transform="translate(100, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26">64</text>
+                <text x="25" y="50" font-size="26"></text>
             </g>
             <g class="cell" transform="translate(200, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26">32</text>
+                <text x="25" y="50" font-size="26"></text>
             </g>
             <g class="cell" transform="translate(300, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26">16</text>
+                <text x="25" y="50" font-size="26"></text>
             </g>
         </g>
         <g class="row" transform="translate(0, 200)">
-            <g class="eight">
+            <g class="cell">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26">8</text>
+                <text x="25" y="50" font-size="26"></text>
             </g>
-            <g class="four" transform="translate(100, 0)">
+            <g class="cell" transform="translate(100, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26">4</text>
+                <text x="25" y="50" font-size="26"></text>
             </g>
-            <g transform="translate(200, 0)" class="two">
+            <g class="cell" transform="translate(200, 0)">
                 <rect width="85" height="85" rx="3" ry="3"/>
-                <text x="25" y="50" font-size="26">2</text>
+                <text x="25" y="50" font-size="26"></text>
             </g>
             <g class="cell" transform="translate(300, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
