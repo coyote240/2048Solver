@@ -46,8 +46,14 @@ class Display(object):
         svg = self.dom.documentElement
         svg.setAttribute('height', '{0}px'.format(val))
 
+    def set_board(self, board):
+        for key, val in board.iteritems():
+            self.cell(key, val)
+
     def for_board(self, board):
         new_disp = self.__class__(self.dom)
+        for key, val in board.iteritems():
+            new_disp.cell(key, val)
         return new_disp
 
     def cell(self, coords, val=None):
@@ -58,15 +64,17 @@ class Display(object):
 
     def _set_cell_value(self, coords, val):
         node = self.cells[coords]
-        text = node.getElementsByTagName('text')
+        text = node.getElementsByTagName('text')[0]
 
         if text.hasChildNodes():
             for n in text.childNodes:
                 text.removeChild(n)
-        text.appendChild(self.dom.createTextNode(val))
+        text.appendChild(self.dom.createTextNode(str(val)))
 
     def _set_cell_color(self, coords, val):
-        pass
+        node = self.cells[coords]
+        rect = node.getElementsByTagName('rect')[0]
+        rect.setAttribute('class', 'tile-{0}'.format(val))
 
     def get_rows(self):
         rows = []

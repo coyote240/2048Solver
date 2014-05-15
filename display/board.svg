@@ -17,6 +17,59 @@
     g.row rect {
         fill: rgba(238, 228, 218, 0.35);
     }
+
+    g.cell rect.tile-2 {
+        fill: #eee4da;
+    }
+
+    g.cell rect.tile-4 {
+        fill: #ede0c8;
+    }
+
+    g.cell rect.tile-8 {
+        color: #f9f6f2;
+        fill: #f2b179;
+    }
+
+    g.cell rect.tile-16 {
+        color: #f9f6f2;
+        fill: #f59563;
+    }
+
+    g.cell rect.tile-32 {
+        color: #f9f6f2;
+        fill: #f67c5f;
+    }
+
+    g.cell rect.tile-64 {
+        color: #f9f6f2;
+        fill: #f65e3b;
+    }
+
+    g.cell rect.tile-128 {
+        color: #f9f6f2;
+        fill: #edcf72;
+    }
+
+    g.cell rect.tile-256 {
+        color: #f9f6f2;
+        fill: #edcc61;
+    }
+
+    g.cell rect.tile-512 {
+        color: #f9f6f2;
+        fill: #edc850;
+    }
+
+    g.cell rect.tile-1024 {
+        color: #f9f6f2;
+        fill: #edc53f;
+    }
+
+    g.cell rect.tile-2048 {
+        color: #f9f6f2;
+        fill: #edc22e;
+    }
     /* ]]> */
     </style>
 
