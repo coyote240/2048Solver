@@ -26,6 +26,26 @@ class Display(object):
             self._cells = self._get_cells()
         return self._cells
 
+    @property
+    def width(self):
+        svg = self.dom.documentElement
+        return svg.getAttribute('width')
+
+    @width.setter
+    def width(self, val):
+        svg = self.dom.documentElement
+        svg.setAttribute('width', '{0}px'.format(val))
+
+    @property
+    def height(self):
+        svg = self.dom.documentElement
+        return svg.getAttribute('height')
+
+    @height.setter
+    def height(self, val):
+        svg = self.dom.documentElement
+        svg.setAttribute('height', '{0}px'.format(val))
+
     def for_board(self, board):
         new_disp = self.__class__(self.dom)
         return new_disp
