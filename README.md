@@ -1,29 +1,40 @@
-# Completely Inelegant 2048 Solver
+# 2048 Solver in Python
 
-I'm sure you've seen a hundred of them.  Here's one more.
+## Why?
 
-I came to the 2048 game a bit late, past the hype.  It's a fun and somewhat
-addictive game, but I seem to have plateaued as I'm sure many have.  I have
-discovered a playable pattern that has gotten me to 15k with most games ending
-in the mid-5ks.  It takes minutes to get this far, and I've not found the
-pattern that gets me to the next level.
+By now you've seen plenty of 2048 variants in any number of languages.  That's
+the way it goes with popular, simple games.  While I may have missed the hype
+I'm happy to share my personal explorations in the space.
 
-## The Pattern
+Plagued by a mild obsession with the game, I decided to start thinking about the
+problem a bit more broadly and make for myself a project to tinker with when I
+was in the mood.  I figure, better to spend the idle tinkering than midlessly
+sliding tless back and forth.
 
-The pattern I have been using is quite simple.  In fact, I think I learned much
-of it from a cat on the bus heading into Denver one evening.  His words, "you
-have to keep promoting your highest numbers to the top row."  And this I have
-done, keeping my highest numbers to the top row, most of my moves are left to
-right, combing numbers 16 and up towards the "top" of the board.
+## Features
 
-There are two problems with this:
+While the ultimate purpose of the project would be to write a program to "solve"
+the 2048 game, at the very least the game must be implemented before it can be
+solved.  I have chosen to implement the game in Python as a series of basic
+objects from which further explorations may be built.
 
-1. Higher numbers can get isolated and can be hard to combine.
-2. There seems to be an oscilating pattern that causes "promoted" higher numbers
-   to occur on opposing ends of the board.
+* A Board class, representing the state of the board at any point in the game
+and being responsible for implementing the rules - largely complete
+* A Game class, very much a work in progress, to manage game play and scoring
+* A Display class.  Any board state may be output to SVG.
+* A Storage class, that ultimately all board states may be stored in a local
+SQLite3 database, as well as any games played.
 
-I just can't seem to break that pattern.  I would like to see the output graph
-of this program point the way to a new play pattern.
+In addition, I've gone on a couple of larks for my own amusement:
+
+* Unit tests, so far focused on the Board class.  The problem is complex enough
+that the tests have helped to ensure an accurate outcome.
+* An iPython notebook - just to try it out.  I have used the notebook as one
+would in scientific computing, explaining my findings regarding the game and how
+I've chosen to solve problems.
+
+The iPython notebook may be found here:
+http://nbviewer.ipython.org/github/coyote240/2048Solver/blob/master/2048Solver.ipynb
 
 ## The Graph
 
@@ -56,8 +67,3 @@ For each game state:
 * evaluate each next state based upon:
     * point value of change
     * number of empty cells
-
-## TODO
-
-* tests
-* ipython notebook
