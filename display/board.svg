@@ -8,6 +8,7 @@
     svg {
         color: #776e65;
         font-family: sans-serif;
+        font-size: 45px;
     }
 
     #board-container {
@@ -79,73 +80,73 @@
         <g class="row">
             <g class="cell">
                 <rect width="85" height="85" rx="3" ry="3"/>
-                <text x="25" y="50" font-size="26"></text>
+                <text x="30" y="60"></text>
             </g>
             <g class="cell" transform="translate(100, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26"></text>
+                <text x="30" y="60"></text>
             </g>
             <g class="cell" transform="translate(200, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26"></text>
+                <text x="30" y="60"></text>
             </g>
             <g class="cell" transform="translate(300, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26"></text>
+                <text x="30" y="60"></text>
             </g>
         </g>
         <g class="row" transform="translate(0, 100)">
             <g class="cell">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26"></text>
+                <text x="30" y="60"></text>
             </g>
             <g class="cell" transform="translate(100, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26"></text>
+                <text x="30" y="60"></text>
             </g>
             <g class="cell" transform="translate(200, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26"></text>
+                <text x="30" y="60"></text>
             </g>
             <g class="cell" transform="translate(300, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26"></text>
+                <text x="30" y="60"></text>
             </g>
         </g>
         <g class="row" transform="translate(0, 200)">
             <g class="cell">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26"></text>
+                <text x="30" y="60"></text>
             </g>
             <g class="cell" transform="translate(100, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26"></text>
+                <text x="30" y="60"></text>
             </g>
             <g class="cell" transform="translate(200, 0)">
                 <rect width="85" height="85" rx="3" ry="3"/>
-                <text x="25" y="50" font-size="26"></text>
+                <text x="30" y="60"></text>
             </g>
             <g class="cell" transform="translate(300, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26"></text>
+                <text x="30" y="60"></text>
             </g>
         </g>
         <g class="row" transform="translate(0, 300)">
             <g class="cell">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26"></text>
+                <text x="30" y="60"></text>
             </g>
             <g class="cell" transform="translate(100, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26"></text>
+                <text x="30" y="60"></text>
             </g>
             <g class="cell" transform="translate(200, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26"></text>
+                <text x="30" y="60"></text>
             </g>
             <g class="cell" transform="translate(300, 0)">
                 <rect width="85" height="85" rx="3" ry="3"></rect>
-                <text x="25" y="50" font-size="26"></text>
+                <text x="30" y="60"></text>
             </g>
         </g>
     </g>
