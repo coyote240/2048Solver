@@ -12,11 +12,15 @@ class Store(object):
 
     def save_board(self, board):
         c = self.connection.cursor()
-        c.execute('INSERT INTO boards VALUES (?, ?, ?)', (
-            board.id,
-            pickle.dumps(board),
-            len(board.get_empty_cells())))
-        self.connection.commit()
+        try:
+            c.execute('INSERT INTO boards VALUES (?, ?, ?)', (
+                board.id,
+                pickle.dumps(board),
+                len(board.get_empty_cells())))
+            self.connection.commit()
+            return True
+        except sqlite3.IntegrityError:
+            return False
 
     def get_board(self, id):
         c = self.connection.cursor()

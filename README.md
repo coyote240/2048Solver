@@ -67,3 +67,12 @@ For each game state:
 * evaluate each next state based upon:
     * point value of change
     * number of empty cells
+
+## Possible Experiments
+
+* Board state abstraction.
+    * represent the board using relative scores rather than absolute scores
+    * store abstracted states in a separate table
+* Joseki
+    * Given abstracted states, are there potential heuristics that can be
+    gleaned from extended play?
