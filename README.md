@@ -1,4 +1,4 @@
-# 2048 Solver in Python
+# 2048 Solver in Python [![Build Status](https://travis-ci.org/coyote240/2048Solver.svg?branch=master)](https://travis-ci.org/coyote240/2048Solver)
 
 ## Why?
 

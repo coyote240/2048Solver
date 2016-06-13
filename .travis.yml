@@ -1,5 +1,5 @@
 language: python
 python:
     - "2.7"
-    - "3.5"
-script: "python tests/board_test.py"
+install: "pip install ."
+script: nosetests

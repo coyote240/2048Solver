@@ -1,5 +1,5 @@
 import unittest
-import board
+from py2048 import board
 
 
 class BoardTests(unittest.TestCase):
