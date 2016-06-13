@@ -104,7 +104,7 @@ class Board (dict):
         '''Return the current board state as a list of lists, oriented
         laterally.
         '''
-        rows = [[], [], [], []]
+        rows = [[] for _ in range(self.size)]
         for x in range(self.size):
             for y in range(self.size):
                 rows[x].append(self.get((x, y)))
@@ -121,7 +121,7 @@ class Board (dict):
         '''Return the current board state as a list of lists, oriented
         longitudinally.
         '''
-        rows = [[], [], [], []]
+        rows = [[] for _ in range(self.size)]
         for x in range(self.size):
             for y in range(self.size):
                 rows[y].append(self.get((x, y)))
