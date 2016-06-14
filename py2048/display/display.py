@@ -8,11 +8,14 @@ default_base_dom = xml.dom.minidom.parse(base_svg)
 
 class Display(object):
 
-    def __init__(self, dom=None):
+    def __init__(self, dom=None, width=200, height=200):
         if dom is not None:
             self.dom = dom.cloneNode(True)
         else:
             self.dom = default_base_dom.cloneNode(True)
+
+        self.width = width
+        self.height = height
 
     @classmethod
     def from_file(cls, filename):
