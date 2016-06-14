@@ -55,7 +55,7 @@ class Board (dict):
 
     def __init__(self, base=None):
         if base is not None:
-            for key, val in base.iteritems():
+            for key, val in base.items():
                 self[key] = val
 
     def __str__(self):

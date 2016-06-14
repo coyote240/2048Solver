@@ -47,12 +47,12 @@ class Display(object):
         svg.setAttribute('height', '{0}px'.format(val))
 
     def set_board(self, board):
-        for key, val in board.iteritems():
+        for key, val in board.items():
             self.cell(key, val)
 
     def for_board(self, board):
         new_disp = self.__class__(self.dom)
-        for key, val in board.iteritems():
+        for key, val in board.items():
             new_disp.cell(key, val)
         return new_disp
 
