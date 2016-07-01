@@ -23,6 +23,12 @@ class Display(object):
         disp.dom = xml.dom.minidom.parse(filename)
         return disp
 
+    @classmethod
+    def for_notebook(cls, board, width=200, height=200):
+        display = cls(width=width, height=height)
+        display.set_board(board)
+        return display.dom.toxml()
+
     @property
     def cells(self):
         if not hasattr(self, '_cells'):
